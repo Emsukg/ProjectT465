@@ -11,6 +11,7 @@ private int [] festgewinn;
     private boolean jokertelefon;
     private boolean jokerpublikum;
     private boolean jokerzusatz;
+    private List<String> experten = new ArrayList<>();
 
     public Spieler(String name) {
         this.name = name;
@@ -132,6 +133,17 @@ private int [] festgewinn;
 
     public boolean isJokerExtraHelpAvailable() {
         return jokerzusatz;
+    
+     public void addExperten (String experte) {
+        experten.add(experte);
+    }
+
+    public List<String> getExperten() {
+        return experten;
+    }
+
+    public void setExperten(List<String> experten) {
+        this.experten = experten;
     }
     // Add methods for Spieler1 if needed
 }
