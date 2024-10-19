@@ -143,12 +143,13 @@ public class WerWirdM {
             a = sc.nextLine();
         }  // Solange Antwort nicht gültig ist, wird es gebeten, eine vernünftige antowrt zu geben.
 
-        if (a.equalsIgnoreCase("ja")) { // zwei Strings miteinander zu vergleichen, ohne dabei auf die Groß- und Kleinschreibung zu achten
+       if (a.equalsIgnoreCase("ja")) { // zwei Strings miteinander zu vergleichen, ohne dabei auf die Groß- und Kleinschreibung zu achten
             if (spieler[pl].getJokers() != 0) { // Es wird zusätzlich überpruft , ober Spieler Joker uberhaupt hat
                 System.out.println("Sie haben eine Möglichkeit den Joker zu verwenden.Joker ist ein einmaliges Hilfsmittel");
                 spieler[pl].printverfugbarJokers(); // Verfügbare Joker für individuellen Spieler
                 System.out.println("Geben sie eine Nummer der Joker an");
                int b=0;
+               int c=0;
                int number;
                 boolean Jokerverwendet = false;
                  do {
