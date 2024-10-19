@@ -197,10 +197,36 @@ public class WerWirdM {
                                 }
                                 break;
                             case 2:
-                                if (spieler[pl].isJokertelefonverfugbar()) {
-                                    System.out.println("Telefonjoker wird verwendet.");
+                               if (spieler[pl].isJokertelefonverfugbar()) {
+                                    List<String> expterte= spieler[pl].getExperten();
+                                    System.out.println("Sie haben die Möglichkeiten drei Personen anzurufen,um einen Hinweis von der Person zu bekommen");
+                                    sc.nextLine();
+                                    System.out.println("Wählen sie einen Expert , den sich anrufen möchten");
+                                    int i=1;
+                                    for (String s: spieler[pl].getExperten()) {
+                                        System.out.println(i + "." + s);
+                                        i++;
+                                    }
+                                    System.out.println("Schreiben sie den Nummer der Person aus der Liste, die Sie anrufen möchten");
+                                    c = sc.nextInt();
+                                    while (!isValid && c < expterte.size()) {
+
+                                        if (sc.hasNextInt()) {
+                                            c = sc.nextInt();
+                                            sc.nextLine();
+                                            isValid = true;
+                                        } else {
+                                            System.out.println("Fehler ist aufgetreten, geben sie gültige nummer an");
+                                            sc.next(); // очищаем некорректный ввод
+                                        }
+
+                                    }
+
+
+                                    System.out.println("Sie rufen..." + expterte.get(c));
                                     // Add phone joker logic here
                                     spieler[pl].setJokertelefon(false); // Mark joker as used
+
                                     Jokerverwendet= true;
                                 } else {
                                     System.out.println("Sie haben schon diesen Joker benutzt");
