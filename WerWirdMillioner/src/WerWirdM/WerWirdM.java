@@ -200,6 +200,18 @@ public class WerWirdM {
                             case 2:
                                if (spieler[pl].isJokertelefonverfugbar()) {
                                     List<String> expterte= spieler[pl].getExperten();
+                                    String alleantworte = Fragen[f][pl][1]; // Antwortmöglichkeiten
+                                    String richtigeAntwort = Fragen[f][pl][2]; // richtigeantwort
+                                    char ans = richtigeAntwort.charAt(0);
+                                    String[] antworten = alleantworte.split(","); // Es lässt die String in der String array definieren, einzelne Elemente werden mit " , " limitiert
+                                    ArrayList<String> answers = new ArrayList<>(Arrays.asList(antworten));
+                                    ArrayList<String> incorrect = new ArrayList<>(); // Einzelne Arraylist für falsche variante für weitere Operationen
+                                    for (String s : answers) {
+                                        if (s.charAt(0) != ans) { // Es wird streng geprüft, ob einzelne Variante nicht richtige ist, wenn es nicht richtig, wird es in List incorrect zugefugt
+                                            incorrect.add(s);
+                                        }
+                                    }
+                                    answers.removeAll(incorrect);
                                     System.out.println("Sie haben die Möglichkeiten drei Personen anzurufen,um einen Hinweis von der Person zu bekommen");
                                     sc.nextLine();
                                     System.out.println("Wählen sie einen Expert , den sich anrufen möchten");
@@ -209,22 +221,60 @@ public class WerWirdM {
                                         i++;
                                     }
                                     System.out.println("Schreiben sie den Nummer der Person aus der Liste, die Sie anrufen möchten");
-                                    c = sc.nextInt();
-                                    while (!isValid && c < expterte.size()) {
 
-                                        if (sc.hasNextInt()) {
-                                            c = sc.nextInt();
-                                            sc.nextLine();
-                                            isValid = true;
+                                    while (true) { if (sc.hasNextInt()) {
+                                        c = sc.nextInt();
+                                        if (c >= 1 && c <= expterte.size()) {
+                                            break;
                                         } else {
-                                            System.out.println("Fehler ist aufgetreten, geben sie gültige nummer an");
+                                            System.out.println("Ungültige Nummer. Bitte wählen Sie eine Zahl zwischen 1 und " + expterte.size());
                                             sc.next(); // очищаем некорректный ввод
                                         }
 
+                                    } else {
+                                        System.out.println("Fehler: Bitte geben Sie eine ganze Zahl ein.");
+                                        sc.next(); // Очищаем буфер ввода
+                                    }
                                     }
 
 
-                                    System.out.println("Sie rufen..." + expterte.get(c));
+                                    System.out.println("Sie rufen..." + expterte.get(c-1));
+                                    System.out.println("Clicken sie Enter zum Weitergehen");
+                                    sc.nextLine();
+                                    System.out.println("Hallo" + expterte.get(c-1) + " Wie geht es dir?");
+                                    sc.nextLine();
+                                    System.out.println("Guten tag" + spieler[pl].getName() + " Gut, was ist bei dir?");
+                                    sc.nextLine();
+                                    System.out.println("Ich bin gerade auf der WerWirdMillionar Sendung und es gibt eine Frage, vielleicht kannst du mir dabei hilfen");
+                                    sc.nextLine();
+                                    System.out.println("Okay, worum geht es ?");
+                                    sc.nextLine();
+                                    System.out.println("So die Frage lautet ");
+                                    sc.nextLine();
+                                    System.out.println(Fragen[f][pl][0]);
+                                    sc.nextLine();
+                                    System.out.println("Und es gibt folgende Variante zum antworten");
+                                    sc.nextLine();
+                                    System.out.println(Fragen[f][pl][1]);
+                                    sc.nextLine();
+                                    System.out.println("Was denkst du daruber?");
+                                    sc.nextLine();
+                                    System.out.println("So ich weiß nicht 100 prozent was richtige ist, aber eine Variante kann ich schon ausschließen");
+                                    System.out.println("Ich denke es bestimmt nicht " + incorrect.get((int)(Math.random()*incorrect.size()))  ); // Eine falsche Variante wird gezeigt
+                                   double chance = Math.random()*1;
+                                   if (chance > 0.7) {
+                                       System.out.println("Ich vermute ,dass eine richtige antwort kann sein" + answers.get(0));
+                                   } else if (chance == 0.5) {
+                                       System.out.println("Ich bin nicht damit sicher, aber es kein sein" );
+                                       answers.addAll(incorrect);
+                                       System.out.println(answers.get((int)(Math.random()*answers.size())));
+                                   }
+                                   else {
+                                       System.out.println("Also ich weiß nicht so gut, aber ich habe ein Gefühl");
+                                       System.out.println(answers.get((int)(Math.random()*answers.size())));
+                                   }
+
+
                                     // Add phone joker logic here
                                     spieler[pl].setJokertelefon(false); // Mark joker as used
 
