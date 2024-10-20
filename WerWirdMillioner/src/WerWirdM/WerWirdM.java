@@ -119,6 +119,16 @@ public class WerWirdM {
         System.out.println("So the frage ist für " + spieler[pl].getName());
         System.out.println(Fragen[f][pl][0]);
         System.out.println(Fragen[f][pl][1]);
+        
+if (f != 0) {
+            System.out.println("Wollen Sie das Spiel aufhoren und den Preise mitnehmen? Antworten sie mit ja oder nein");
+            String antwort = sc.nextLine();
+            if (antwort.equalsIgnoreCase("ja")) {
+                spieler[pl].setEnde(true);
+                return;
+            } // Beenden Spielablauf für
+        }
+        
         jokernutz(f, pl);
         System.out.println("Bitte geben Sie Ihre Antwort ein:");
         String as = answer();
@@ -307,6 +317,13 @@ public class WerWirdM {
     public void spielstart() {
         for (int i = 0; i < 15; i++) {
             for (int j = 0; j < 2; j++) {
+                
+                 if (spieler[j].getEnde()) {
+                    int acutellegewinn = spieler[j].getGewinn();
+                    System.out.println(spieler[j].getName() + " " + " Ihre aktuelle Gewinn" + spieler[j].getGewinn());
+                    break;
+                }
+        
                 fragenzeigen(i, j);
             }
         }
