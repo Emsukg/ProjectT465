@@ -124,8 +124,7 @@ public class WerWirdM {
         String as = answer();
         if (as.equalsIgnoreCase(Fragen[f][pl][2])) {
             System.out.println("Correct ");
-            spieler[pl].setGewinn(summe[fragenummer]);
-            fragenummer++;
+            spieler[pl].setGewinn(summe[f]);
             System.out.println("Ihre Aktuelles Gewinn " + spieler[pl].getGewinn());
 
         } else {
