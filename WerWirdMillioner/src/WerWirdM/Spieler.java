@@ -12,6 +12,8 @@ private int [] festgewinn;
     private boolean jokerpublikum;
     private boolean jokerzusatz;
     private List<String> experten = new ArrayList<>();
+        private boolean ende; // Ende indikator
+
 
     public Spieler(String name) {
         this.name = name;
@@ -119,9 +121,7 @@ private int [] festgewinn;
         return jokertelefon;
     }
 
-    public void useJokerCallFriend() {
-        jokertelefon = false;
-    }
+    
 
     public boolean isJokerAudienceHelpAvailable() {
         return jokerpublikum;
@@ -145,6 +145,18 @@ private int [] festgewinn;
     public void setExperten(List<String> experten) {
         this.experten = experten;
     }
+
+     public void setEnde(boolean ende) {
+        this.ende = ende;
+    }
+
+    public boolean getEnde() {
+        return ende;
+    }
+
+    public void berechnenGewinn () {
+
+}
     // Add methods for Spieler1 if needed
 }
 
