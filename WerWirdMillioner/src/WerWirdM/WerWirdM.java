@@ -124,9 +124,9 @@ public class WerWirdM {
 	        Fragen[8][1][1] = "A: Kumpel B: Pfundskerle C: Haudegen D: Tausendsassas";
 	        Fragen[8][1][2] = "B";
 	        
-	        Fragen[9][1][0] = "Frage 10: Womit sind viele Babys direkt nach der Geburt überzogen?";
-	        Fragen[9][1][1] = "A: Buttersoße B: Wurstpelle C: Sahnecreme D: Käseschmiere";
-	        Fragen[9][1][2] = "D";
+	        Fragen[9][0][0] = "Frage 10: Womit sind viele Babys direkt nach der Geburt überzogen?";
+	        Fragen[9][0][1] = "A: Buttersoße B: Wurstpelle C: Sahnecreme D: Käseschmiere";
+	        Fragen[9][0][2] = "D";
 	        
 	        Fragen[9][1][0] = "Frage 10: Was dient zur Fortbewegung eines Kanus?";
 	        Fragen[9][1][1] = "A: Spießpaddel B: Stechpaddel C: Pikspaddel D: Zwickpaddel";
