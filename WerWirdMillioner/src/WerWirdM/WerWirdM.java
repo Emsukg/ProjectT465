@@ -115,6 +115,11 @@ public class WerWirdM {
     }
 
     public void fragenzeigen(int f, int pl) {
+        
+if (!spieler[pl].isActivspiel()) { // wenn Spieler hat das Spiel beendet, wird die Methode nicht durchgeführt
+            return;
+        }
+        
         Scanner sc = new Scanner(System.in);
         System.out.println("So the frage ist für " + spieler[pl].getName());
         System.out.println(Fragen[f][pl][0]);
@@ -308,28 +313,28 @@ if (f != 0) {
         }
 
     }
-    public String answer() {
-        Scanner sc = new Scanner(System.in);
-        String as = sc.nextLine();
-        return as;
-    }
+   
 
-    public void spielstart() {
-        for (int i = 0; i < 15; i++) {
+  public void spielstart() {
+ // Indicator das Spiel zu beenden und weitere iterationen nicht durchführen
+        for (int i = 0; i < 15 ; i++) {
             for (int j = 0; j < 2; j++) {
-                
-                 if (spieler[j].getEnde()) {
-                    int acutellegewinn = spieler[j].getGewinn();
-                    System.out.println(spieler[j].getName() + " " + " Ihre aktuelle Gewinn" + spieler[j].getGewinn());
-                    break;
+                if (!spieler[j].isActivspiel()) { // Wenn Spieler vorher das Spiel beendet hat, dann wird Spieler ausgelassen
+                    continue; // fängt neue Iteration (anderer Spieler)
                 }
-        
-                fragenzeigen(i, j);
+                if (spieler[j].getEnde()) { // wenn der Spieler hat selbst das Spiel aufgehort, dann wird es funktioniert
+                    int acutellegewinn = spieler[j].getGewinn(); 
+                    System.out.println(spieler[j].getName() + " " + " Ihre aktuelle Gewinn" + spieler[j].getGewinn());
+                    spieler[j].setActivspiel(false); // Der Spieler ist nicht mehr aktiv im Spiel
+                    continue; // diese Operator beendet diese iteration und somit fangt mit dem nachsten Spieler
+                } else {
+                    if (spieler[j].isActivspiel()) { // Wenn Spieler im Spiel noch aktiv ist, dann wird das Spiel weiterlaufen
+                    fragenzeigen(i,j); }
+                }
+
             }
         }
     }
-
-
 }
 
 
