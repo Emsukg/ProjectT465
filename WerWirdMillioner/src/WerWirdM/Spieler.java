@@ -12,7 +12,9 @@ private int [] festgewinn;
     private boolean jokerpublikum;
     private boolean jokerzusatz;
     private List<String> experten = new ArrayList<>();
-        private boolean ende; // Ende indikator
+         private boolean positiveende; // Ende indikator , dies ist eine positive Ende
+    private boolean negativeende;
+    private boolean activspiel; // Indiktor ob Spieler noch spielt oder er hat Spiel beendet
 
 
     public Spieler(String name) {
@@ -157,6 +159,14 @@ private int [] festgewinn;
     public void berechnenGewinn () {
 
 }
+
+        public boolean isActivspiel() {
+        return activspiel;
+    }
+
+    public void setActivspiel(boolean activspiel) {
+        this.activspiel = activspiel;
+    }
     // Add methods for Spieler1 if needed
 }
 
