@@ -26,6 +26,7 @@ String []experte = new String[3];
             System.out.println("Geben Sie ihren Namen ein");
             String name = sc.nextLine(); // Eingabe werden im Format der Stringen gespeichert
              spieler [i]= new Spieler(name);// Hier wird ein neues Objekt der Klasse Spieler erstellt
+           spieler[i].setActivspiel(true); // indicator ob Spieler spielt oder hat das Spiel beendet
             experte(sc,spieler[i]);
         }
 
