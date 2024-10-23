@@ -10,8 +10,9 @@ public class WerWirdM {
     int[] summe = {50, 100, 200, 300, 500, 1000, 2000, 4000, 8000, 16000, 32000, 64000, 125000, 500000, 1000000}; // Gewinnsumme
     int fragenummer = 0; // Frage indicator
     Spieler[] spieler; // Spieler objecte
-
-    public WerWirdM(Spieler[] spieler) { // Constructor bekommt Spieler array with objecten spieler
+      static Scanner sc ; // Scanner initialization
+    public WerWirdM(Spieler[] spieler) {
+          sc=new Scanner(System.in) ;// Constructor bekommt Spieler array with objecten spieler
         this.spieler = spieler; // feld der klasse Spieler bekommt
         Fragen = new String[15][2][3]; // A
         einfehrung(); // Die Methoden werden hier aufgerufen , weil nach der Einstellung des Konstruktors das Spiel kann abgelaufen werden
@@ -19,7 +20,7 @@ public class WerWirdM {
     }
 
     public void einfehrung() { // In diesem Methode wählt Spieler zwei mögliche Vartiante des Spieles
-        Scanner sc = new Scanner(System.in);
+         
         for (int i = 0; i < spieler.length; i++) {
 
             System.out.println("Willkommen zur Sendung Wer wird Milliarden sehr geehrte" + " " + spieler[i].getName());
@@ -33,6 +34,7 @@ public class WerWirdM {
 
             } while (!ans.equalsIgnoreCase("1") && !ans.equalsIgnoreCase("2")); // Eingabe soll entweder 1 oder 2 sein,solange die answer is weder 1 und  noch 2 , dann wird es weitergehen
             if (ans.equalsIgnoreCase("1")) {
+                  spieler[i].setErstevariante(true);
                 spieler[i].setJokers(3);
                 spieler[i].setFestgewinn(new int[]{500, 16000});
                 spieler[i].enableJoker5050();
@@ -40,6 +42,7 @@ public class WerWirdM {
                 spieler[i].enableJokerAudienceHelp();
 
             } else {
+                  spieler[i].setZweitevariante(true);
                 spieler[i].setJokers(4);
                 spieler[i].setFestgewinn(new int[]{500});
                 spieler[i].enableJoker5050();
@@ -119,8 +122,7 @@ public class WerWirdM {
 if (!spieler[pl].isActivspiel()) { // wenn Spieler hat das Spiel beendet, wird die Methode nicht durchgeführt
             return;
         }
-        
-        Scanner sc = new Scanner(System.in);
+   
         System.out.println("So the frage ist für " + spieler[pl].getName());
         System.out.println(Fragen[f][pl][0]);
         System.out.println(Fragen[f][pl][1]);
@@ -129,8 +131,8 @@ if (f != 0) {
             System.out.println("Wollen Sie das Spiel aufhoren und den Preise mitnehmen? Antworten sie mit ja oder nein");
             String antwort = sc.nextLine();
             if (antwort.equalsIgnoreCase("ja")) {
-                spieler[pl].setEnde(true);
-                return;
+                spieler[pl].setEnde(true); // Indicator des Spielers für das Beenden das Spiel
+                return; // return beendet die Methode für bestimmte Spiele
             } // Beenden Spielablauf für
         }
         
@@ -143,13 +145,15 @@ if (f != 0) {
             System.out.println("Ihre Aktuelles Gewinn " + spieler[pl].getGewinn());
 
         } else {
-            System.out.println("Wrong");
+           System.out.println("Sie haben leider falsh geantwortet. Das Spiel ist beendet");
+            negativeEnde(pl);
+            ergebnis();
 
         }
     }
 
    public void jokernutz(int f, int pl) {
-   Scanner sc = new Scanner(System.in);
+
    System.out.println("Wollen Sie einen Joker nutzen.Antworten Sie bitte 'ja' , wenn ja oder 'nein' wenn nein");
         String a = sc.nextLine(); // Eingabe
         while (!a.equalsIgnoreCase("ja") && !a.equalsIgnoreCase("nein")) {
@@ -298,7 +302,33 @@ if (f != 0) {
                                     continue;
                                 }
                                 break;
+case 3: 	if(spieler[pl].isJokerAudienceHelpAvailable()) {
+                            int summeA = 0, summeB = 0, summeC = 0, summeD = 0;//anzahl der Menschen, die anwort A waehlt
+                            for (int i = 0; i < 100; i++) {
+                                int Zu = (int) (Math.random() * 4 + 1);
+                                if (Zu == 1) {
+                                    summeA++;
+                                } else if (Zu == 2) {
+                                    summeB++;
+                                } else if (Zu == 3) {
+                                    summeC++;
+                                } else if (Zu == 4) {
+                                    summeD++;
+                                }
+                                //Prozent A,B,C oder D=(summeA,B,C oder D*100)/100=summeA,B,C oderD
+                                System.out.println("Es gibt " + summeA + "% des Publikums, die A waehlt");
+                                System.out.println("Es gibt " + summeB + "% des Publikums, die B waehlt");
+                                System.out.println("Es gibt " + summeC + "% des Publikums, die C waehlt");
+                                System.out.println("Es gibt " + summeD + "% des Publikums, die D waehlt");
 
+                                System.out.println("Publikumjoker wird verwendet.");
+                                spieler[pl].setJokerpublikumHelp(false);
+                                Jokerverwendet = true; }
+                            } else{
+                                System.out.println("Sie haben schon diesen Joker benutzt");
+                                continue;
+                            }
+                            break;
 
                             default:
                                 System.out.println("Ungültige Jokerwahl.");
@@ -334,7 +364,51 @@ if (f != 0) {
 
             }
         }
+       ergebnis();
     }
+
+    public void negativeEnde (int pl) {
+     spieler[pl].setNegativeende(true);
+     spieler[pl].setActivspiel(false);
+     int festgewinn1 = spieler[pl].getFestgewinn()[0]; // 500
+     int festgewinn2 = spieler[pl].getFestgewinn()[1]; // 16000
+     if (spieler[pl].istErstevariante()) { // 500 oder 16000 und 3 Joker
+         if (spieler[pl].getGewinn() >= festgewinn1 && spieler[pl].getGewinn() < festgewinn2) { // Wenn Gewinn ist zwischen 500 und 16000
+             spieler[pl].setGewinn(festgewinn1); // Ist Gewinn dann 500
+         }
+         else if (spieler[pl].getGewinn() >= festgewinn2){ // Wenn Gewinn großer oder gleich 16000
+             spieler[pl].setGewinn(festgewinn2); // Dann ist Gewinn 16000
+         }
+         else  { // In anderen Fällen 0
+             spieler[pl].setGewinn(0);
+     }
+     } else { // 500 und 4 Joker
+         if (spieler[pl].getGewinn()>=festgewinn1) { spieler[pl].setGewinn(festgewinn1); // Gewinn großer oder gleich 500 dann ist gewinn 500
+         }
+         else if (spieler[pl].getGewinn()<festgewinn1) { // Ansonsten Gewinn ist null
+             spieler[pl].setGewinn(0);
+         }
+     }
+
+    }
+    public void ergebnis () {
+     int gewinn=0;
+     int gewinn2=0;
+           if (spieler[0].getEnde() || spieler[0].istNegativeende() && spieler[1].getEnde() || spieler[1].istNegativeende() ) {
+               gewinn = spieler[0].getGewinn();
+               gewinn2 = spieler[1].getGewinn();
+
+               if (gewinn > gewinn2) {
+                   System.out.println("Der Spieler " + " " + spieler[0].getName() + " " + "hat ein größeres Gewinn" + " " + spieler[0].getGewinn());
+
+               } else if (gewinn == gewinn2) {
+                   System.out.println("Die Spieler" + " " + "haben ein gleiches Gewinn" + " " + spieler[0].getGewinn());
+               } else {
+                   System.out.println("Der Spieler " + " " + spieler[1].getName() + " " + "hat ein größeres Gewinn" + " " + spieler[1].getGewinn());
+               }
+           }
+    
 }
+
 
 
