@@ -5,16 +5,18 @@ public class Spieler {
     // и позволяет контролировать процесс изменения значений через методы.
     private int jokers;
     int gewinn;
-    int currentquest;
+ 
 private int [] festgewinn;
     private boolean joker5050;
     private boolean jokertelefon;
     private boolean jokerpublikum;
     private boolean jokerzusatz;
-    private List<String> experten = new ArrayList<>();
-         private boolean positiveende; // Ende indikator , dies ist eine positive Ende
+    private boolean erstevariante; // erste Spielvariante
+    private boolean zweitevariante; // zweite Spielvariante
+    private List<String> experten = new ArrayList<>(); // Spielers individuelle Experte
+    private boolean positiveende; // Ende indikator , dies ist eine positive Ende
     private boolean negativeende;
-    private boolean activspiel; // Indiktor ob Spieler noch spielt oder er hat Spiel beendet
+    private boolean activspiel;
 
 
     public Spieler(String name) {
@@ -156,9 +158,6 @@ private int [] festgewinn;
         return ende;
     }
 
-    public void berechnenGewinn () {
-
-}
 
         public boolean isActivspiel() {
         return activspiel;
@@ -166,6 +165,30 @@ private int [] festgewinn;
 
     public void setActivspiel(boolean activspiel) {
         this.activspiel = activspiel;
+    }
+
+      public boolean istNegativeende() {
+        return negativeende;
+    }
+
+    public void setNegativeende(boolean negativeende) {
+        this.negativeende = negativeende;
+    }
+
+    public boolean istErstevariante() {
+        return erstevariante;
+    }
+
+    public void setErstevariante(boolean erstevariante) {
+        this.erstevariante = erstevariante;
+    }
+
+    public boolean istZweitevariante() {
+        return zweitevariante;
+    }
+
+    public void setZweitevariante(boolean zweitevariante) {
+        this.zweitevariante = zweitevariante;
     }
     // Add methods for Spieler1 if needed
 }
