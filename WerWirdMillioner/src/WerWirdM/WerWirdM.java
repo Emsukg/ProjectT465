@@ -158,11 +158,19 @@ public class WerWirdM {
 	        
 	        Fragen[13][0][0] = "Frage 14: Wer war von 2014 bis 2018 die bisher einzige Frau auf dem Posten des deutschen Botschafters beim Heiligen Stuhl?";
 	        Fragen[13][0][1] = "A: Annette Schavan B: Rita Süssmuth C: Margot Käßmann D: Gloria von Thurn und Taxis";
-	        Fragen[13][0][2] = "A";	        	        
+	        Fragen[13][0][2] = "A";	   
+
+            Fragen[13][1][0] = "Frage 14: Welchen Eintrag findet man im Urduden von 1880 nicht?";
+	        Fragen[13][1][1] = "A:Glühlampe  B: Mikrophon  C: Dynamit  D:Batterie";
+	        Fragen[13][1][2] = "A";	
+
+            Fragen[14][0][0] = "Frage 15: Wer muss beim Urlaub im Schwarzwald grundsätzlich die sogenannte Zwei-Meter-Regel beachten?";
+	        Fragen[14][0][1] = "A: Nichtschwimmer B: Hundebesitzer C: Wohnmobilfahrer  D: Mountainbiker ";
+	        Fragen[14][0][2] = "D";	     	        
 	        
-	        Fragen[14][1][0] = "Frage 14: „Rider-Waite“, „Crowley“ und „Marseille“ sind die bekanntesten Varianten von ...?";
+	        Fragen[14][1][0] = "Frage 15: „Rider-Waite“, „Crowley“ und „Marseille“ sind die bekanntesten Varianten von ...?";
 	        Fragen[14][1][1] = "A: Diamantschliffen  B: Sektgläsern C: Tarotkarten D: Schuhschnürungen";
-	        Fragen[14][1][2] = "C";
+	        Fragen[14][1][2] = "A";
 
     }
 
@@ -268,6 +276,27 @@ public class WerWirdM {
 
                                   case 3:
 	                            	if(spieler[pl].isJokerAudienceHelpAvailable()){
+                                        int summeA=0, summeB=0, summeC=0, summeD=0;//anzahl der Menschen, die anwort A waehlt
+	                            		for(int i=0; i<100; i++) {  
+	                            			int Zu=(int)(Math.random()*4+1);
+	                            				if(Zu==1) {
+	                            					summeA++;
+	                            					}
+	                            					else if(Zu==2) {
+	                            						summeB++;
+	                            			}   
+	                            					else if(Zu==3) {
+	                            						summeC++;
+	                            			}   
+	                            					else if(Zu==4) {
+	                            						summeD++;
+	                            			}
+	                            				//Prozent A,B,C oder D=(summeA,B,C oder D*100)/100=summeA,B,C oderD
+	                            			System.out.println("Es gibt "+summeA+"% des Publikums, die A waehlt");
+	                            			System.out.println("Es gibt "+summeB+"% des Publikums, die B waehlt");
+	                            			System.out.println("Es gibt "+summeC+"% des Publikums, die C waehlt");
+	                            			System.out.println("Es gibt "+summeD+"% des Publikums, die D waehlt");
+
 	                            		System.out.println("Publikumjoker wird verwendet.");
 	                            		spieler[pl].setJokerpublikumHelp(false);
 	                            		Jokerverwendet=true;
@@ -279,6 +308,30 @@ public class WerWirdM {
 		                            
 	                            case 4:
 	                            	if(spieler[pl].isJokerExtraHelpAvailable()) {
+                                        int Name;
+	                            		while(!sc.hasNextInt()) {
+	                            			System.out.println("Bitte noch ein mal probieren");
+	                            			sc.next();// loesche ungueltige Eingabe
+	                            		}
+	                            		Name=sc.nextInt();// noch mal eingeben
+	                            		
+	                            		if(Name==1) {
+	                            			System.out.println("Die Leute hat B antwortet");// randome leute mit dieser Bedingung antwortet
+	                            		}
+	                            		else if(Name%2 ==0) {
+	                            				System.out.println("Die Leute hat A antwortet");
+	                            			}
+	                            		else if(Name%5 ==0) {
+	                            				System.out.println("Die Leute hat B antwortet");
+	                            			}
+	                            		else if(Name%3 ==0) {
+	                            				System.out.println("Die Leute hat C antwortet");
+	                            			}
+	                            		else if(Name%7 ==0) {
+	                            				System.out.println("Die Leute hat D antwortet");
+	                            			}
+
+
 	                            		System.out.println("Zusatzjoker wird verwendet.");
 	                            		spieler[pl].setJokerzusatz(false);
 	                            		Jokerverwendet=true;
@@ -289,6 +342,7 @@ public class WerWirdM {
 		                                break;
 	                            	
                         }
+                        sc.nextLine();
 
            } while (!Jokerverwendet);
 
